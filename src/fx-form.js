@@ -285,66 +285,11 @@
             return false;
         });
 
-        $(function () {
-            $.validator.addMethod(
-                "date",
-                function (value, element) {
-                    var b = true;
-                    try {
-                        $.datepicker.parseDate(common.dateFormat, value);
-                    }
-                    catch (err) {
-                        b = false;
-                    }
-
-                    return b;
-                },
-                "<span title='Lütfen geçerli bir tarih giriniz.'></span>", "Lütfen yanda belirtilen formatta giriniz: " + common.dateFormat
-            );
-
-            $(".date-element").datepicker({
-                dateFormat: common.dateFormat
-            });
-
-            $.validator.addMethod(
-                "parity",
-                function (value, element) {
-                    var isFloat = new RegExp(/^\d+(\,\d{1,4})?$/i).test(value);
-
-                    return isFloat;
-                },
-                "<span title='{0}'></span>".replace('{0}', "Lütfen 0,0000 formatında parite giriniz.")
-            );
-        });
-
         fx.forms.push(editForm);
 
         return editForm;
     };
 })(jQuery, fx);
-
-
-$.extend($.validator.messages, {
-    required: "<span title='Bu alan zorunludur.'></span>",
-    remote: "Lütfen bu alanı düzeltiniz.",
-    email: "<span title='Lütfen geçerli bir mail adresi giriniz.'></span>",
-    url: "<span title='{0}'></span>".replace('{0}', "Geçerli bir URL giriniz."),
-    date: "<span title='Lütfen geçerli bir tarih giriniz.'></span>",
-    dateISO: "<span title='Lütfen geçerli bir tarih giriniz (ISO).'></span>",
-    number: "<span title='{0}'></span>".replace('{0}', "Lütfen geçerli bir sayı giriniz."),
-    digits: "<span title='Lütfen geçerli bir değer giriniz.'></span>",
-    creditcard: "<span title='{0}'></span>".replace('{0}', "Lütfen geçerli bir kredi kartı numarası giriniz."),
-    equalTo: "<span title='{0}'></span>".replace('{0}', "Lütfen aynı değeri giriniz."),
-    accept: "<span title='{0}'></span>".replace('{0}', "Lütfen geçerli bir uzantı giriniz."),
-    maxlength: "<span title='{0}'></span>".replace('{0}', jQuery.validator.format("Girdiğiniz değer {0} karakterden fazla olamaz.")),
-    minlength: "<span title='{0}'></span>".replace('{0}', jQuery.validator.format("Lütfen en az {0} karakter giriniz.")),
-    rangelength: "<span title='{0}'></span>".replace('{0}', jQuery.validator.format("Girdiğiniz değer {0} ve {1} karakter uzunlugu arasında olmalıdır.")),
-    range: "<span title='{0}'></span>".replace('{0}', jQuery.validator.format("Lütfen {0} ve {1} arasında bir değer giriniz.")),
-    max: "<span title='{0}'></span>".replace('{0}', jQuery.validator.format("Girdiğiniz değer {0} den küçük veya eşit olmalıdır.")),
-    min: "<span title='{0}'></span>".replace('{0}', jQuery.validator.format("Girdiğiniz değer {0} den büyük ya da eşit olmalıdır.")),
-    regex : "<span title='Lütfen geçerli bir formatta değer giriniz.'></span>"
-});
-
 
 /*
 Image: {
