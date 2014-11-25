@@ -168,72 +168,7 @@
             //creates 
             var label = $('<label for="{name}">{caption}</label>'.replace('{name}', val.name).replace('{caption}', val.caption));
             
-            if (val.type == 'string') {
-                input = fx.formFieldFactory(val);
-            } else if (val.type == 'parity') {
-                input = $('<input id="{name}" name="{name}" maxlength="{maxLength}" type="text" class="text-element"/>'.replace('{name}', val.name).replace('{name}', val.name).replace('{maxLength}', val.maxLength));
-
-                if (val.type == 'parity') {
-                    input.addClass('parity-element');
-                }
-            } else if (val.type == 'textarea') {
-                $tr.addClass('textarea-row');
-                input = fx.formFieldFactory(val);
-            } else if (val.type == 'int') {
-                input = $('<input id="{name}" name="{name}" maxlength="{maxLength}" type="text" class="text-element int"/>'.replace('{name}', val.name).replace('{name}', val.name).replace('{maxLength}', 10));
-            } else if (val.type == 'radio') {
-                input = $('<div class="radio-wrapper"></div>');
-                $(val.items).each(function(i, opts) {
-                    $('<span></span>').text(opts.Text).appendTo(input);
-                    $('<input id="{name}" name="{name}" type="radio" class="radio-element"/>'.replace('{name}', val.name + i).replace('{name}', val.name)).val(opts.Value).attr('checked', !!opts.Selected).appendTo(input);
-                });
-            } else if (val.type == 'dropdown') {
-                input = $('<select id="{id}" name="{name}" class="dropdown-element"/>'.replace('{id}', val.name).replace('{name}', val.name));
-                var sb = [];
-                if (val.hasPleaseSelect) {
-                    sb.push('<option value="{0}">{1}</option>'.replace('{1}', val.hasPleaseSelectText || 'Lütfen seçiniz.').replace('{0}', ''));
-                }
-
-                if (val.items && val.items.length > 0) {
-
-                    for (var j = 0; j < val.items.length; j++) {
-                        sb.push('<option value="{0}">{1}</option>'.replace('{1}', val.items[j].Text).replace('{0}', val.items[j].Value));
-                    }
-                    input.html(sb.join(''));
-                }
-            } else if (val.type == 'date') {
-                input = $('<input id="{id}" name="{name}" type="text" class="date-element"/>'.replace('{id}', val.name).replace('{name}', val.name));
-            } else if (val.type == 'image-upload') {
-                input = $('<a id="LnkFileWrapper"><img src="{0}" width="{1}" height="{2}" alt="no image"></a>'.replace('{0}', val.noImagePath).replace("{1}", val.width || 150).replace("{2}", val.height || 150));
-                var wrapper = $('<div></div>');
-                var fileInput = document.createElement('input');
-                $(fileInput).css('display', 'none').attr({ type: 'file', name: val.name + "_file", id: val.name + "_file", disable: 'disabled' });
-                wrapper.append(fileInput);
-                var addButton = document.createElement('a');
-                $(addButton).click(function(e) {
-                    e.preventDefault();
-                    fileInput.click();
-                }).addClass('btn-add-image').text(fx.resources.btn.addImage).appendTo(wrapper);
-                input.append(wrapper);
-
-                $(fileInput).fileupload({
-                    url: val.url,
-                    dataType: 'json',
-                    done: function(e, data) {
-                        var info = data.result.Data;
-                        var thumpPath = val.temporaryPath + info.thumb;
-                        input.find('img').attr({ src: thumpPath });
-                        $('<input type="hidden" id="{0}" name="{1}" value="{2}"/>'.format(val.name, val.name, info.baseFileName)).appendTo(editForm);
-                    }
-                });
-            } else if (val.type === 'custom') {
-                input = null;
-                if (val.renderer) {
-                    input = val.renderer();
-                } else {
-                    throw ("custom type should have render method");
-                }
-            }
+            input = fx.formFieldFactory(val);
 
             if (val.required) { $(input).addClass('required'); }
             if (val.type == "int" || val.number) { $(input).addClass('number'); }
