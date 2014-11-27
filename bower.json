@@ -5,7 +5,7 @@
     "Fatih Kiymet <fatih.kiymet@gkfx.com>"
   ],
   "description": "fx ui library",
-  "main": "dist/fx-core.js",
+  "main": "dist/fx.js",
   "keywords": [
     "fx",
     "ui"
